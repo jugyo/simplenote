@@ -1,4 +1,4 @@
-= simplenote
+= jugyo-simplenote
 
 A dead simple gem for accessing SimpleNote notes via its API
 

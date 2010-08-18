@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "simplenote"
+    gem.name = "jugyo-simplenote"
     gem.summary = %Q{Simple wrapper for the SimpleNote HTTP API}
     gem.description = %Q{Uses HTTParty to present a nice Ruby wrapper for SimpleNote}
     gem.email = "simon.jefford@gmail.com"
