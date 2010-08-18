@@ -17,6 +17,15 @@ class SimpleNote
     end
   end
 
+  def self.textize(method)
+    class_eval do
+      alias_method "_#{method}", method
+      define_method(method) do |*args|
+        self.send("_#{method}", *args).body
+      end
+    end
+  end
+
   def initialize(*args)
     self.login(*args)
   end
@@ -37,7 +46,7 @@ class SimpleNote
     out = self.class.get "/note", :query => request_hash.merge(:key => key), :format => :plain
     out.response.is_a?(Net::HTTPNotFound) ? nil : out
   end
-  jsonize :get_note
+  textize :get_note
 
   def delete_note(key)
     out = self.class.get "/delete", :query => request_hash.merge(:key => key)
