@@ -8,6 +8,10 @@ class SimpleNote
   format :json
   base_uri 'https://simple-note.appspot.com/api'
 
+  def initialize(*args)
+    self.login(*args)
+  end
+
   def login(email, password)
     encoded_body = Base64.encode64({:email => email, :password => password}.to_params)
     @email = email
@@ -33,7 +37,7 @@ class SimpleNote
   def update_note(key, content)
     self.class.post "/note", :query => request_hash.merge(:key => key), :body => Base64.encode64(content)
   end
-  
+
   def create_note(content)
     self.class.post "/note", :query => request_hash, :body => Base64.encode64(content)
   end
@@ -41,6 +45,12 @@ class SimpleNote
   def search(search_string, max_results=10)
     self.class.get "/search", :query => request_hash.merge(:query => search_string, :results => max_results)
   end
+
+  alias_method :keys, :get_index
+  alias_method :[], :get_note
+  alias_method :delete, :delete_note
+  alias_method :[]=, :update_note
+  alias_method :<<, :create_note
 
   private
 
